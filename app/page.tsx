@@ -3,7 +3,7 @@ import { socialLinks } from "./config";
 
 export default function Page() {
   return (
-    <section>
+   /* <section>
       <a href={socialLinks.twitter} target="_blank">
         <Image
           src="/profile.png"
@@ -60,6 +60,20 @@ export default function Page() {
           .
         </p>
       </div>
+    </section> */
+    <section>
+      <h1 className="mb-8 text-2xl font-medium">
+        Portfolio
+      </h1>
+      <div className="prose prose-neutral dark:prose-invert">
+        <p>
+          
+        </p>
+        <p>
+          Thank you.
+        </p>
+      </div>
+
     </section>
   );
 }

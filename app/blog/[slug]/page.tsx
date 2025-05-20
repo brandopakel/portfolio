@@ -4,7 +4,7 @@ import { CustomMDX } from "app/components/mdx";
 import { formatDate, getBlogPosts } from "app/lib/posts";
 import { metaData } from "app/config";
 
-export async function generateStaticParams() {
+/*export async function generateStaticParams() {
   let posts = getBlogPosts();
 
   return posts.map((post) => ({
@@ -101,3 +101,4 @@ export default async function Blog({ params }) {
     </section>
   );
 }
+*/

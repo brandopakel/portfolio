@@ -149,3 +149,8 @@ table {
 .title {
   text-wrap: balance;
 }
+
+ul{
+  list-style: disc;
+  padding-left: 20px;
+}
