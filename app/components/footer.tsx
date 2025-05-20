@@ -56,6 +56,9 @@ export default function Footer() {
       >
         {metaData.title}
       </a>
+      <span className="pl-10 italic">
+        {metaData.email}
+      </span>
       <style jsx>{`
         @media screen and (max-width: 480px) {
           article {

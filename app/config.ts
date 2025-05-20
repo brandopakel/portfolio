@@ -1,10 +1,11 @@
 export const metaData = {
-  baseUrl: "https://nextfolio-template.vercel.app/",
+  baseUrl: "https://www.brandopakel.com/",
   title: "Brando Pakel",
   name: "BP",
-  ogImage: "/opengraph-image.png",
+  ogImage: "",
   description:
     "My personal portfolio",
+  email: "brando.pakel@gmail.com",
 };
 
 export const socialLinks = {

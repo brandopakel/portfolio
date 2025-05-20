@@ -1,6 +1,14 @@
 
 export const models = [
   {
+    slug: 'crwd-dcf',
+    title: "CrowdStrike Analysis",
+    description: "DCF",
+    file: '/models/crowdstrike.xlsx',
+    embedUrl: "https://1drv.ms/x/c/4cef457bb869b141/IQSSR0HOxF7uTIUI-W50AzXUAcSoBRaiCC6dTccgmUZ43ZI?em=2&AllowTyping=True&ActiveCell='CrowdStrike%20Financials'!A1&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True",
+    date: 'May 17, 2025',
+  },
+  {
     slug: 'nvda-analysis',
     title: "Nvidia Analysis",
     description: "Comparables, Prescedent Transactions, DCF, LBO, M&A",
@@ -40,14 +48,6 @@ export const models = [
         },
 
     ]
-  },
-  {
-    slug: 'crwd-dcf',
-    title: "CrowdStrike Analysis",
-    description: "DCF",
-    file: '/models/crowdstrike.xlsx',
-    embedUrl: "https://1drv.ms/x/c/4cef457bb869b141/IQSSR0HOxF7uTIUI-W50AzXUAcSoBRaiCC6dTccgmUZ43ZI?em=2&AllowTyping=True&ActiveCell='CrowdStrike%20Financials'!A1&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True",
-    date: 'May 17, 2025',
   },
 ];
 

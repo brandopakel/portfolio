@@ -70,7 +70,7 @@ export default function Page() {
           
         </p>
         <p>
-          Thank you.
+          I enjoy building things — from financial models to full-stack apps. With a background in finance and a love for code, I like solving problems at the intersection of data, logic, and design.
         </p>
       </div>
 
