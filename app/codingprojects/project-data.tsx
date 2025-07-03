@@ -9,7 +9,7 @@ export const projects: Project[] = [
   {
     title: "Crypto Dashboard",
     year: "2025",
-    description: "A full user dashboard",
+    description: "A full suite user dashboard",
     url: "https://github.com/brandopakel/crypto-dash",
   },
   {
