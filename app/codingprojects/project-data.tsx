@@ -7,6 +7,12 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "K-Means Visualizer",
+    year: "2025",
+    description: "K-Means Visualizer",
+    url: "https://k-means-visualization.vercel.app/"
+  },
+  {
     title: "Crypto Dashboard",
     year: "2025",
     description: "A full suite user dashboard",
