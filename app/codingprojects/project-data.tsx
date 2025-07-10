@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     title: "Crypto Trading Engine",
     year: "2025",
-    description: "A trading recommender and analyzer written in Python with Coinbase API",
+    description: "A trading recommender and analyzer - Coinbase API",
     url: "https://github.com/brandopakel/crypto-trading-engine",
   },
 ];
