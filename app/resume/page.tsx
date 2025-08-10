@@ -75,7 +75,7 @@ export default function Photos() {
   );
 }*/
   export default function showcaseResume(){
-    const filePath = path.join(process.cwd(),'content/resume.mdx');
+    const filePath = path.join(process.cwd(),'content/brando-pakel-resume.mdx');
     const source = fs.readFileSync(filePath,'utf-8');
     return(
       <section>
