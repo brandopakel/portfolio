@@ -1,7 +1,7 @@
 import React from "react";
-import type { Metadata } from "next";
+import { Metadata } from "next/dist/types";
 import { ImageGrid } from "app/components/image-grid";
-import { MDXRemote } from "next-mdx-remote/rsc";
+//import { MDXRemote } from "next-mdx-remote/rsc";
 import fs from 'fs';
 import path from 'path';
 
@@ -74,14 +74,12 @@ export default function Photos() {
     </section>
   );
 }*/
-  export default function showcaseResume(){
+export default function showcaseResume(){
     const filePath = path.join(process.cwd(),'content/brando-pakel-resume.mdx');
     const source = fs.readFileSync(filePath,'utf-8');
     return(
       <section>
-        <h1 className="mb-8 text-2xl font-medium">Resume</h1>
-        <MDXRemote source={source}/>
+        
       </section>
-    )
+    );
   }
-

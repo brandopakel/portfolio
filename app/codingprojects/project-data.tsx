@@ -13,10 +13,10 @@ export const projects: Project[] = [
     url: "https://k-means-visualization.vercel.app/"
   },
   {
-    title: "Crypto Dashboard",
+    title: "Trading/Forecasting Engine & Analytics Platform",
     year: "2025",
     description: "A full suite user dashboard",
-    url: "https://github.com/brandopakel/crypto-dash",
+    url: "",
   },
   {
     title: "Crypto Trading Engine",

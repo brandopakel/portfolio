@@ -1,6 +1,28 @@
 
 export const models = [
   {
+    slug: 'crcl-dcf',
+    title: "Circle Analysis",
+    description: "AOP, DCF, Calculations",
+    file: '',
+    embedUrl: '',
+    date: 'August 19, 2025',
+    subModels: [
+      {
+        slug: 'calculations',
+        title: 'Supported Calculations & Tables',
+        embedUrl: "https://1drv.ms/x/c/4cef457bb869b141/IQR1iJGsMUuIQ6u9j7pcrdpyAQwzW_mFwAzesEiT7rqxG78?em=2&wdAllowInteractivity=False&ActiveCell='Circle%20Transparency%20Inputs'!A2&wdHideHeaders=True&wdInConfigurator=True&wdInConfigurator=True",
+        file: '/models/Circle_ReserveYield_Historical_Template.xlsx',
+      },
+      {
+        slug: 'crcl-dcf',
+        title: 'AOP & DCF Valuation',
+        embedUrl: "https://1drv.ms/x/c/4cef457bb869b141/IQSsmGW1WktyQ4uLxAtkHDuiAZIYk0CoLPHgfVy16am9MwQ?em=2&wdAllowInteractivity=False&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True",
+        file: '/models/Circle_Analysis.xlsx',
+      }
+    ]
+  },
+  {
     slug: 'crwd-dcf',
     title: "CrowdStrike Analysis",
     description: "DCF",

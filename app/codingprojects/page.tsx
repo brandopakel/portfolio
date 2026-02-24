@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Metadata } from "next";
+import { Metadata } from "next/dist/types";
 import { projects } from "./project-data";
 
 export const metadata: Metadata = {
