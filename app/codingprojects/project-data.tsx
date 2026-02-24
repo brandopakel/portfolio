@@ -2,7 +2,7 @@ export interface Project {
   title: string;
   year: string;
   description: string;
-  url: string;
+  url?: string;
 }
 
 export const projects: Project[] = [
@@ -16,7 +16,6 @@ export const projects: Project[] = [
     title: "Trading/Forecasting Engine & Analytics Platform",
     year: "2025",
     description: "A full suite user dashboard",
-    url: "",
   },
   {
     title: "Crypto Trading Engine",
