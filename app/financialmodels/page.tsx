@@ -9,21 +9,56 @@ export const metadata: Metadata = {
 
 export default function Models() {
   return (
-    <section>
-      <h1 className="mb-8 text-2xl font-medium">Financial Models</h1>
-      <div>
+    <section className="pb-10">
+      <header className="mb-8">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-400">
+          Finance Portfolio
+        </p>
+        <h1 className="text-3xl font-semibold tracking-normal text-neutral-950 dark:text-neutral-50">
+          Financial Models
+        </h1>
+        <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+          Excel-based analysis across real estate cash flow, public-market
+          valuation, DCF, LBO, and M&A transaction modeling.
+        </p>
+      </header>
+
+      <div className="grid gap-4">
         {models.map((model) => (
           <Link
             key={model.slug}
             href={`/financialmodels/${model.slug}`}
-            className="flex flex-col space-y-1 mb-5 transition-opacity duration-200 hover:opacity-80"
+            className="block rounded-md border border-neutral-200 px-4 py-4 transition-colors hover:border-neutral-400 hover:bg-neutral-50 dark:border-neutral-800 dark:hover:border-neutral-600 dark:hover:bg-neutral-950"
           >
-            <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
-              <h2 className="text-black dark:text-white">{model.title}</h2>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                {model.description}
-              </p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-400">
+                  {model.date}
+                </p>
+                <h2 className="mt-2 font-medium text-neutral-950 dark:text-neutral-50">
+                  {model.title}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+                  {model.summary ?? model.description}
+                </p>
+              </div>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                Open
+              </span>
             </div>
+
+            {model.metrics && model.metrics.length > 0 ? (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {model.metrics.slice(0, 3).map((metric) => (
+                  <span
+                    key={`${model.slug}-${metric.label}`}
+                    className="rounded-md bg-neutral-100 px-2.5 py-1 text-xs text-neutral-700 dark:bg-neutral-900 dark:text-neutral-300"
+                  >
+                    {metric.label}: {metric.value}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </Link>
         ))}
       </div>

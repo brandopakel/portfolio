@@ -1,6 +1,13 @@
-import { getExcelEmbedUrl, models } from 'app/lib/models';
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import Link from "next/link";
+import { getExcelEmbedUrl, models } from "app/lib/models";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import {
+  DownloadLink,
+  ProjectAnalysis,
+  ProjectIntro,
+  WorkbookFrame,
+} from "../../project-view";
 
 export async function generateMetadata({
   params,
@@ -15,10 +22,9 @@ export async function generateMetadata({
 
   return {
     title: subModel.title,
-    description: `Part of ${model?.title}`,
+    description: subModel.summary ?? `Part of ${model?.title}`,
   };
 }
-
 
 export async function generateStaticParams() {
   const paths: { slug: string; childslug: string }[] = [];
@@ -46,40 +52,32 @@ export default async function SubModelPage({
 
   if (!model || !subModel) return notFound();
 
-  const embedUrl = getExcelEmbedUrl(subModel.file, subModel.embedUrl);
+  const embedUrl = getExcelEmbedUrl(
+    subModel.file,
+    subModel.embedUrl,
+    subModel.embedParams
+  );
 
   return (
-    <section className="w-full pt-2 pb-6 px-4">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-2">{subModel.title}</h1>
-        <p className="text-sm italic text-gray-500 mb-4">
-          Part of {model.title}
-        </p>
-      </div>
+    <section className="pb-10">
+      <Link
+        href={`/financialmodels/${model.slug}`}
+        className="mb-6 inline-flex text-sm text-neutral-600 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-neutral-50"
+      >
+        Back to {model.title}
+      </Link>
 
-      <div className="w-full flex justify-center mt-6 mb-6 px-4">
-        <div className="w-full max-w-6xl">
-          <iframe
-            src={embedUrl}
-            title={`${subModel.title} Excel preview`}
-            width="100%"
-            height="500"
-            frameBorder="0"
-            allowFullScreen
-            className="w-full rounded-lg shadow"
-          />
-        </div>
-      </div>
+      <ProjectIntro
+        title={subModel.title}
+        eyebrow={`Part of ${model.title}`}
+        description={`Part of ${model.title}`}
+        summary={subModel.summary}
+        metrics={subModel.metrics}
+      />
 
-      <div className="max-w-3xl mx-auto">
-        <a
-          href={subModel.file}
-          download
-          className="text-blue-600 underline hover:text-blue-800"
-        >
-          Download Excel File
-        </a>
-      </div>
+      <WorkbookFrame src={embedUrl} title={subModel.title} />
+      <DownloadLink href={subModel.file} />
+      <ProjectAnalysis summary={subModel.summary} analysis={subModel.analysis} />
     </section>
   );
 }
