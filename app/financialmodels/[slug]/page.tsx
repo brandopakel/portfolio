@@ -1,4 +1,4 @@
-import {models} from 'app/lib/models';
+import { getExcelEmbedUrl, models } from 'app/lib/models';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
@@ -104,7 +104,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
   const model = models.find((m) => m.slug === slug);
@@ -120,13 +120,14 @@ export async function generateMetadata({
 export default async function ModelPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
   const model = models.find((m) => m.slug === slug);
   if (!model) return notFound();
 
   const hasSubModels = Array.isArray(model.subModels) && model.subModels.length > 0;
+  const embedUrl = getExcelEmbedUrl(model.file, model.embedUrl);
 
   return (
     <section className="w-full pt-2 pb-6 px-4">
@@ -160,7 +161,8 @@ export default async function ModelPage({
         <div className="w-full overflow-x-auto mt-6 mb-6">
           <div className="w-[900px] mx-auto">
             <iframe
-              src={model.embedUrl}
+              src={embedUrl}
+              title={`${model.title} Excel preview`}
               width="100%"
               height="500"
               frameBorder="0"

@@ -1,4 +1,21 @@
 
+import { metaData } from "app/config";
+
+export function getExcelEmbedUrl(file: string, fallbackUrl?: string) {
+  if (!file) {
+    return fallbackUrl ?? "";
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? metaData.baseUrl;
+  const workbookUrl = file.startsWith("http")
+    ? file
+    : new URL(file, baseUrl).toString();
+
+  return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(
+    workbookUrl
+  )}`;
+}
+
 export const models = [
   {
     slug: 'crcl-dcf',

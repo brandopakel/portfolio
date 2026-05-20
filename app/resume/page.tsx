@@ -1,85 +1,54 @@
-import React from "react";
-import { Metadata } from "next/dist/types";
-import { ImageGrid } from "app/components/image-grid";
-//import { MDXRemote } from "next-mdx-remote/rsc";
-import fs from 'fs';
-import path from 'path';
+import type { Metadata } from "next";
 
-/*export const metadata: Metadata = {
-  title: "Photos",
-  description: "My Photos",
+const resumeUrl = "/resume/brando-pakel-resume.pdf";
+
+export const metadata: Metadata = {
+  title: "Resume",
+  description: "Brando Pakel resume",
 };
 
-export default function Photos() {
+export default function ResumePage() {
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-medium">Photos</h1>
-      <ImageGrid
-        columns={3}
-        images={[
-          {
-            src: "/photos/photo1.jpg",
-            alt: "Roman columns",
-            href: "https://unsplash.com/photos/people-walking-near-building-during-daytime-dFLBDQQeffU?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
-          },
-          {
-            src: "/photos/photo2.jpg",
-            alt: "Big Ben",
-            href: "https://unsplash.com/photos/big-ben-london-MdJq0zFUwrw?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
-          },
-          {
-            src: "/photos/photo3.jpg",
-            alt: "Sacré-Cœur Basilica",
-            href: "https://unsplash.com/photos/a-view-of-the-inside-of-a-building-through-a-circular-window-Tp-3hrx88J4",
-          },
-          {
-            src: "/photos/photo4.jpg",
-            alt: "Eiffel Tower",
-            href: "https://unsplash.com/photos/the-eiffel-tower-towering-over-the-city-of-paris-OgPuPvPsHLM?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
-          },
-          {
-            src: "/photos/photo5.jpg",
-            alt: "Taj Mahal",
-            href: "https://unsplash.com/photos/taj-mahal-india-IPlPkWPJ2fo",
-          },
-          {
-            src: "/photos/photo6.jpg",
-            alt: "Colosseum",
-            href: "https://unsplash.com/photos/brown-concrete-building-under-blue-sky-during-daytime-3cyBR1rIJmA?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash",
-          },
-        ]}
-      />
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="mb-2 text-2xl font-medium">Resume</h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            Current PDF resume, embedded directly on the page.
+          </p>
+        </div>
 
-      <ImageGrid
-        columns={2}
-        images={[
-          { src: "/photos/photo1.jpg", alt: "Roman columns" },
-          { src: "/photos/photo2.jpg", alt: "Big Ben" },
-          { src: "/photos/photo3.jpg", alt: "Sacré-Cœur Basilica" },
-          { src: "/photos/photo4.jpg", alt: "Eiffel Tower" },
-        ]}
-      />
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md border border-neutral-300 px-3 py-2 text-sm font-medium transition-colors hover:border-neutral-700 dark:border-neutral-700 dark:hover:border-neutral-300"
+          >
+            Open PDF
+          </a>
+          <a
+            href={resumeUrl}
+            download
+            className="rounded-md bg-black px-3 py-2 text-sm font-medium text-white transition-opacity hover:opacity-80 dark:bg-white dark:text-black"
+          >
+            Download
+          </a>
+        </div>
+      </div>
 
-      <ImageGrid
-        columns={4}
-        images={[
-          { src: "/photos/photo1.jpg", alt: "Roman columns" },
-          { src: "/photos/photo2.jpg", alt: "Big Ben" },
-          { src: "/photos/photo3.jpg", alt: "Sacré-Cœur Basilica" },
-          { src: "/photos/photo4.jpg", alt: "Eiffel Tower" },
-          { src: "/photos/photo5.jpg", alt: "Taj Mahal" },
-          { src: "/photos/photo6.jpg", alt: "Colosseum" },
-        ]}
-      />
+      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900">
+        <object
+          data={`${resumeUrl}#view=FitH`}
+          type="application/pdf"
+          className="h-[78vh] min-h-[640px] w-full"
+        >
+          <div className="p-6 text-sm text-neutral-700 dark:text-neutral-300">
+            The PDF preview is not available in this browser. Open or download
+            the resume using the buttons above.
+          </div>
+        </object>
+      </div>
     </section>
   );
-}*/
-export default function showcaseResume(){
-    const filePath = path.join(process.cwd(),'content/brando-pakel-resume.mdx');
-    const source = fs.readFileSync(filePath,'utf-8');
-    return(
-      <section>
-        
-      </section>
-    );
-  }
+}

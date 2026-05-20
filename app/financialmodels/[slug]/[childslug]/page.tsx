@@ -1,14 +1,15 @@
-import { models } from 'app/lib/models';
+import { getExcelEmbedUrl, models } from 'app/lib/models';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string; childslug: string };
+  params: Promise<{ slug: string; childslug: string }>;
 }): Promise<Metadata | undefined> {
-  const model = models.find((m) => m.slug === params.slug);
-  const subModel = model?.subModels?.find((s) => s.slug === params.childslug);
+  const { slug, childslug } = await params;
+  const model = models.find((m) => m.slug === slug);
+  const subModel = model?.subModels?.find((s) => s.slug === childslug);
 
   if (!subModel) return;
 
@@ -34,16 +35,18 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default function SubModelPage({
+export default async function SubModelPage({
   params,
 }: {
-  params: { slug: string; childslug: string };
+  params: Promise<{ slug: string; childslug: string }>;
 }) {
-  const { slug, childslug } = params;
+  const { slug, childslug } = await params;
   const model = models.find((m) => m.slug === slug);
   const subModel = model?.subModels?.find((s) => s.slug === childslug);
 
   if (!model || !subModel) return notFound();
+
+  const embedUrl = getExcelEmbedUrl(subModel.file, subModel.embedUrl);
 
   return (
     <section className="w-full pt-2 pb-6 px-4">
@@ -57,7 +60,8 @@ export default function SubModelPage({
       <div className="w-full flex justify-center mt-6 mb-6 px-4">
         <div className="w-full max-w-6xl">
           <iframe
-            src={subModel.embedUrl}
+            src={embedUrl}
+            title={`${subModel.title} Excel preview`}
             width="100%"
             height="500"
             frameBorder="0"

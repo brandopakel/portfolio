@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { models } from "app/lib/models";
 
 export const metadata: Metadata = {
-  title: "Coding Projects",
-  description: "Portfolio Coding Projects",
+  title: "Financial Models",
+  description: "Portfolio Financial Models",
 };
 
 export default function Models() {

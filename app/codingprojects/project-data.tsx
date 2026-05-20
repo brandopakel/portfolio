@@ -2,25 +2,72 @@ export interface Project {
   title: string;
   year: string;
   description: string;
-  url?: string;
+  image?: string;
+  imageAlt?: string;
+  tags: string[];
+  links: {
+    label: string;
+    href: string;
+  }[];
 }
 
 export const projects: Project[] = [
   {
-    title: "K-Means Visualizer",
-    year: "2025",
-    description: "K-Means Visualizer",
-    url: "https://k-means-visualization.vercel.app/"
+    title: "Omnivest",
+    year: "2026",
+    description:
+      "A portfolio intelligence workspace for crypto spot markets, combining forecasting, risk analytics, allocation context, and parallel-engine strategy research in one product-facing dashboard.",
+    image: "/projects/omnivest.png",
+    imageAlt: "Omnivest portfolio intelligence landing page",
+    tags: ["Crypto analytics", "Forecasting", "Risk", "Strategy engines"],
+    links: [
+      {
+        label: "Visit Omnivest",
+        href: "https://omnivest.io/",
+      },
+    ],
   },
   {
-    title: "Trading/Forecasting Engine & Analytics Platform",
+    title: "K-Means Visualizer",
     year: "2025",
-    description: "A full suite user dashboard",
+    description:
+      "Interactive clustering tool that lets users place points, tune cluster count, and watch k-means converge step by step.",
+    tags: ["TypeScript", "Visualization", "Algorithms"],
+    links: [
+      {
+        label: "Live demo",
+        href: "https://k-means-visualization.vercel.app/",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/brandopakel/k-means-visualization",
+      },
+    ],
   },
   {
     title: "Crypto Trading Engine",
     year: "2025",
-    description: "A trading recommender and analyzer - Coinbase API",
-    url: "https://github.com/brandopakel/crypto-trading-engine",
+    description:
+      "Python trading research engine for Coinbase market data, recommendation logic, and strategy analysis workflows.",
+    tags: ["Python", "Coinbase API", "Trading systems"],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/brandopakel/crypto-trading-engine",
+      },
+    ],
+  },
+  {
+    title: "Python for Finance",
+    year: "2025",
+    description:
+      "Finance-oriented Python exercises and utilities focused on market data analysis, modeling workflows, and data handling fundamentals.",
+    tags: ["Python", "Finance", "Data analysis"],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/brandopakel/python_for_finance",
+      },
+    ],
   },
 ];
