@@ -1,1 +1,1 @@
-A full user dashboard. Connect your wallet or utilize the site without it. You can access a full suite of coin data, as well as defi data and other user wallet data. You can manage your own coin holdings as well as interact with the trading view to incorporate technical strategies into your analysis. You can utilize the ML/AI platform built within to test user selected strategies, as well as let the dashboard trade for you.
+My portfolio site
