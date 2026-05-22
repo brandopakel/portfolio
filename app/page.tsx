@@ -62,9 +62,6 @@ export default function Page() {
       </div>
     </section> */
     <section>
-      <h1 className="mb-8 text-2xl font-medium">
-        Portfolio
-      </h1>
       <div className="prose prose-neutral dark:prose-invert">
         <p>
           
