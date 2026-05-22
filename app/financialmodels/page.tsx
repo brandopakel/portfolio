@@ -11,9 +11,6 @@ export default function Models() {
   return (
     <section className="pb-10">
       <header className="mb-8">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-400">
-          Finance Portfolio
-        </p>
         <h1 className="text-3xl font-semibold tracking-normal text-neutral-950 dark:text-neutral-50">
           Financial Models
         </h1>
