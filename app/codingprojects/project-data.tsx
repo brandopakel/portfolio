@@ -16,10 +16,10 @@ export const projects: Project[] = [
     title: "Omnivest",
     year: "2026",
     description:
-      "A portfolio intelligence workspace for crypto spot markets, combining forecasting, risk analytics, allocation context, and parallel-engine strategy research in one product-facing dashboard.",
+      "A multi-asset quant trading platform, fully self-built with AI tools, combining forecasting, risk analytics, allocation context, and strategy research in one product-facing dashboard.",
     image: "/projects/omnivest.png",
     imageAlt: "Omnivest portfolio intelligence landing page",
-    tags: ["Crypto analytics", "Forecasting", "Risk", "Strategy engines"],
+    tags: ["Multi-asset quant", "Forecasting", "Risk", "Strategy engines"],
     links: [
       {
         label: "Visit Omnivest",
