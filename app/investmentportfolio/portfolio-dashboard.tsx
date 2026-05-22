@@ -247,14 +247,6 @@ export function PortfolioDashboard() {
                 </div>
               ))}
             </SummaryPanel>
-
-            <SummaryPanel title="Portfolio Method">
-              <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-                The current Seeking Alpha file does not include shares, cost basis,
-                or position value. This page calculates the aggregate move as an
-                equal-weight basket until value-weighted data is available.
-              </p>
-            </SummaryPanel>
           </aside>
         </section>
       </div>

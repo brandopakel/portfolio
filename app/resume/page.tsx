@@ -14,7 +14,7 @@ export default function ResumePage() {
         <div>
           <h1 className="mb-2 text-2xl font-medium">Resume</h1>
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Current PDF resume, embedded directly on the page.
+            Current resume preview.
           </p>
         </div>
 
@@ -37,17 +37,19 @@ export default function ResumePage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="relative left-1/2 w-screen -translate-x-1/2 px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-md border border-neutral-200 bg-neutral-100 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
         <object
-          data={`${resumeUrl}#view=FitH`}
+          data={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH&zoom=100`}
           type="application/pdf"
-          className="h-[78vh] min-h-[640px] w-full"
+          className="h-[86vh] min-h-[720px] w-full"
         >
           <div className="p-6 text-sm text-neutral-700 dark:text-neutral-300">
             The PDF preview is not available in this browser. Open or download
             the resume using the buttons above.
           </div>
         </object>
+        </div>
       </div>
     </section>
   );

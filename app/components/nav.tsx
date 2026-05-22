@@ -2,30 +2,38 @@ import Link from "next/link";
 import { ThemeSwitch } from "./theme-switch";
 import { metaData } from "../config";
 
-const navItems = {
-  "/financialmodels": { name: "Financial Models" },
-  "/investmentportfolio": { name: "Investment Portfolio" },
-  "/codingprojects": { name: "Coding Projects" },
-  "/resume": { name: "Resume" },
-};
+const navItems = [
+  { path: "/financialmodels", name: "Financial Models", shortName: "Models" },
+  {
+    path: "/investmentportfolio",
+    name: "Investment Portfolio",
+    shortName: "Invest",
+  },
+  { path: "/codingprojects", name: "Coding Projects", shortName: "Code" },
+  { path: "/resume", name: "Resume", shortName: "Resume" },
+];
 
 export function Navbar() {
   return (
-    <nav className="lg:mb-16 mb-12 py-5">
-      <div className="flex flex-col md:flex-row md:items-center justify-between">
-        <div className="flex items-center">
-          <Link href="/" className="text-3xl font-semibold">
+    <nav className="relative left-1/2 mb-12 w-screen -translate-x-1/2 px-4 py-5 sm:px-6 lg:mb-16">
+      <div className="mx-auto flex max-w-6xl flex-row items-center justify-between gap-3">
+        <div className="flex min-w-fit items-center">
+          <Link
+            href="/"
+            className="whitespace-nowrap text-xl font-semibold leading-tight sm:text-2xl md:text-3xl"
+          >
             {metaData.title}
           </Link>
         </div>
-        <div className="flex flex-row flex-wrap gap-x-4 gap-y-2 mt-6 md:mt-0 md:ml-auto items-center justify-start md:justify-end text-sm sm:text-base">
-          {Object.entries(navItems).map(([path, { name }]) => (
+        <div className="ml-auto flex min-w-0 flex-nowrap items-center justify-end gap-2 whitespace-nowrap text-[11px] font-medium sm:gap-3 sm:text-xs md:gap-5 md:text-sm lg:text-base">
+          {navItems.map(({ path, name, shortName }) => (
             <Link
               key={path}
               href={path}
-              className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative"
+              className="relative flex shrink-0 align-middle transition-all hover:text-neutral-800 dark:hover:text-neutral-200"
             >
-              {name}
+              <span className="hidden sm:inline">{name}</span>
+              <span className="sm:hidden">{shortName}</span>
             </Link>
           ))}
           <ThemeSwitch />
