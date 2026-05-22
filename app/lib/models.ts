@@ -65,12 +65,10 @@ export const models: FinancialModel[] = [
     slug: "multifamily-cash-flow-budget",
     title: "Multifamily Cash Flow Budget",
     description: "Rent roll analysis, monthly pro forma, NOI, debt service, capex",
-    file: "/models/multifamily-cash-flow-budget.xlsm",
+    file: "/models/multifamily-cash-flow-budget.xlsx",
     embedUrl: "",
     embedParams: {
       ActiveCell: "'Monthly Forecast'!B2",
-      wdHideGridlines: "True",
-      wdHideHeaders: "True",
       wdDownloadButton: "True",
       wdInConfigurator: "True",
     },
