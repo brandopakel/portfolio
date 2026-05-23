@@ -40,4 +40,5 @@ export const portfolioHoldings: PortfolioHolding[] = [
   { symbol: "LMT", assetClass: "Equity", seedPrice: 522.59, seedPreviousClose: 526.63, seedChange: -4.04, seedChangePercent: -0.7671, forwardYield: 2.62, beta: 0.19 },
   { symbol: "CRCL", assetClass: "Equity", seedPrice: 111.62, seedPreviousClose: 111.03, seedChange: 0.59, seedChangePercent: 0.5314 },
   { symbol: "PLTR", assetClass: "Equity", seedPrice: 137.15, seedPreviousClose: 135.26, seedChange: 1.89, seedChangePercent: 1.3973, beta: 2.09 },
+  { symbol: "CRM", assetClass: "Equity", seedPrice: 180.07, seedPreviousClose: 176.31, seedChange: 3.76, seedChangePercent: 2.1326 },
 ];
