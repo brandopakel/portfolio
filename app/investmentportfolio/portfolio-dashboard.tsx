@@ -160,11 +160,6 @@ export function PortfolioDashboard() {
           <h1 className="text-3xl font-semibold tracking-normal text-neutral-950 dark:text-neutral-50">
             Investment Portfolio
           </h1>
-          <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-            A live equal-weight view of the holdings exported from my Seeking Alpha
-            portfolio. Position sizing can be added once shares or market values
-            are available in the export.
-          </p>
         </header>
 
         <section className="mt-8 grid gap-3 md:grid-cols-4">

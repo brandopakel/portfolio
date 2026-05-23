@@ -21,6 +21,7 @@ export const portfolioHoldings: PortfolioHolding[] = [
   { symbol: "BLK", assetClass: "Equity", seedPrice: 1051.57, seedPreviousClose: 1036.3, seedChange: 15.27, seedChangePercent: 1.4735, forwardYield: 2.21, beta: 1.07 },
   { symbol: "BX", assetClass: "Equity", seedPrice: 116.83, seedPreviousClose: 114.26, seedChange: 2.57, seedChangePercent: 2.2493, forwardYield: 4.06, beta: 1.24 },
   { symbol: "AMD", assetClass: "Equity", seedPrice: 447.58, seedPreviousClose: 414.05, seedChange: 33.53, seedChangePercent: 8.0981, beta: 1.94 },
+  { symbol: "NVDA", assetClass: "Equity", seedPrice: 215.33, seedPreviousClose: 219.51, seedChange: -4.18, seedChangePercent: -1.9042 },
   { symbol: "RDDT", assetClass: "Equity", seedPrice: 146.72, seedPreviousClose: 154.88, seedChange: -8.16, seedChangePercent: -5.2686, beta: 2.25 },
   { symbol: "XLK", assetClass: "ETF", seedPrice: 177.14, seedPreviousClose: 173.24, seedChange: 3.9, seedChangePercent: 2.2512, forwardYield: 0.39, beta: 1.49 },
   { symbol: "XLF", assetClass: "ETF", seedPrice: 51.66, seedPreviousClose: 51.1, seedChange: 0.56, seedChangePercent: 1.0959, forwardYield: 1.97, beta: 0.87 },
