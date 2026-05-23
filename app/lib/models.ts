@@ -62,6 +62,49 @@ export function getExcelEmbedUrl(
 
 export const models: FinancialModel[] = [
   {
+    slug: "ai-infrastructure-stack-analysis",
+    title: "AI Infrastructure Stack Analysis",
+    description:
+      "Comparable company analysis, scoring matrix, scenario cases, and AI capex stress testing",
+    file: "/models/ai-infrastructure-stack-analysis.xlsx",
+    embedUrl: "",
+    embedParams: {
+      ActiveCell: "'Dashboard'!B2",
+      wdDownloadButton: "True",
+      wdInConfigurator: "True",
+    },
+    date: "May 23, 2026",
+    summary:
+      "A cross-stack comparable company and scenario analysis for NVDA, TSM, VRT, NET, PLTR, and MDB that connects growth, margins, valuation multiples, free cash flow, weighted scoring, and AI capex stress testing to identify the strongest risk-adjusted AI infrastructure exposure.",
+    metrics: [
+      { label: "Universe", value: "6 names", helper: "Across the AI infrastructure stack" },
+      { label: "Top pick", value: "TSM", helper: "Best risk-adjusted setup" },
+      { label: "Stress gap", value: "+9.3x", helper: "TSM EV/EBITDA expansion under -30% AI capex shock" },
+    ],
+    analysis: [
+      {
+        title: "Mapped the AI infrastructure stack across six investable layers.",
+        body:
+          "The workbook breaks the AI value chain into chips and compute, foundry manufacturing, power and cooling, edge networking, enterprise AI data, and data infrastructure. It standardizes NVDA, TSM, VRT, NET, PLTR, and MDB across revenue growth, 3-year CAGR, gross margin, EBITDA margin, free-cash-flow margin, enterprise value, EV/Revenue, EV/EBITDA, FCF yield, non-GAAP EBITDA, and Rule of 40.",
+      },
+      {
+        title: "Separated business quality from entry valuation.",
+        body:
+          "NVDA wins the balanced composite score at 2.125 because it leads the group on growth and profitability, with roughly 65.5% revenue growth, a 61.7% EBITDA margin, and a 44.8% FCF margin. The dashboard still selects TSM as the risk-adjusted top pick because it offers a cleaner valuation profile, with 27.3x current EV/EBITDA and about 22.2x base forward EV/EBITDA versus NVDA's 39.4x current EV/EBITDA.",
+      },
+      {
+        title: "Stress-tested what happens if AI capex rolls over.",
+        body:
+          "The scenarios tab applies a -30% AI capex shock weighted by each company's estimated AI-tied revenue share. Under that case, TSM expands from 27.3x to 36.7x EV/EBITDA, while NVDA moves from 39.4x to 66.7x, VRT from 60.4x to 153.6x, and PLTR from 244.2x to 341.1x. The model proves that TSM has the most durable risk/reward in a capex slowdown, while VRT is the highest-beta infrastructure exposure.",
+      },
+      {
+        title: "Flagged where sentiment is doing more work than fundamentals.",
+        body:
+          "PLTR screens as high-quality but extremely expensive: even the bull case of 35% revenue growth and 40% EBITDA margins still leaves it around 145.5x forward EV/EBITDA. NET and MDB are treated mainly as EV/Revenue stories because current EBITDA is near breakeven or negative. The analysis frames NET as an AI-adjacent edge platform that still needs operating leverage, while MDB is the more defensible reset name if Atlas vector search momentum translates into growth.",
+      },
+    ],
+  },
+  {
     slug: "multifamily-cash-flow-budget",
     title: "Multifamily Cash Flow Budget",
     description: "Rent roll analysis, monthly pro forma, NOI, debt service, capex",
