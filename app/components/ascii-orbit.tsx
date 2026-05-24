@@ -40,63 +40,171 @@ function randomGenerator(seed: number) {
   };
 }
 
+function addLine(points: Point[], start: Point, end: Point, steps: number) {
+  for (let i = 0; i <= steps; i += 1) {
+    const t = i / steps;
+    points.push({
+      x: start.x + (end.x - start.x) * t,
+      y: start.y + (end.y - start.y) * t,
+      z: start.z + (end.z - start.z) * t,
+    });
+  }
+}
+
+function addTorusCloud(points: Point[], random: () => number) {
+  for (let i = 0; i < 620; i += 1) {
+    const u = random() * Math.PI * 2;
+    const v = random() * Math.PI * 2;
+    const radius = 1.18;
+    const tube = 0.48;
+
+    points.push({
+      x: (radius + tube * Math.cos(v)) * Math.cos(u),
+      y: (radius + tube * Math.cos(v)) * Math.sin(u),
+      z: tube * Math.sin(v),
+    });
+  }
+}
+
+function addCubeWireframe(points: Point[]) {
+  const edges = [
+    [-1, -1, -1, 1, -1, -1],
+    [-1, 1, -1, 1, 1, -1],
+    [-1, -1, 1, 1, -1, 1],
+    [-1, 1, 1, 1, 1, 1],
+    [-1, -1, -1, -1, 1, -1],
+    [1, -1, -1, 1, 1, -1],
+    [-1, -1, 1, -1, 1, 1],
+    [1, -1, 1, 1, 1, 1],
+    [-1, -1, -1, -1, -1, 1],
+    [1, -1, -1, 1, -1, 1],
+    [-1, 1, -1, -1, 1, 1],
+    [1, 1, -1, 1, 1, 1],
+  ];
+
+  edges.forEach(([x1, y1, z1, x2, y2, z2]) => {
+    addLine(
+      points,
+      { x: x1, y: y1, z: z1 },
+      { x: x2, y: y2, z: z2 },
+      38
+    );
+  });
+}
+
+function addSphereCloud(points: Point[], random: () => number) {
+  for (let i = 0; i < 560; i += 1) {
+    const theta = random() * Math.PI * 2;
+    const phi = Math.acos(2 * random() - 1);
+    const radius = 1 + random() * 0.55;
+
+    points.push({
+      x: radius * Math.sin(phi) * Math.cos(theta),
+      y: radius * Math.sin(phi) * Math.sin(theta),
+      z: radius * Math.cos(phi),
+    });
+  }
+}
+
+function addHelix(points: Point[], random: () => number) {
+  const turns = 2.4 + random() * 0.8;
+  const radius = 0.86 + random() * 0.18;
+
+  for (let strand = 0; strand < 2; strand += 1) {
+    const phase = strand * Math.PI;
+
+    for (let i = 0; i < 220; i += 1) {
+      const t = i / 219;
+      const theta = t * Math.PI * 2 * turns + phase;
+      points.push({
+        x: radius * Math.cos(theta),
+        y: (t - 0.5) * 2.35,
+        z: radius * Math.sin(theta),
+      });
+    }
+  }
+
+  for (let i = 0; i < 18; i += 1) {
+    const t = i / 17;
+    const theta = t * Math.PI * 2 * turns;
+    addLine(
+      points,
+      {
+        x: radius * Math.cos(theta),
+        y: (t - 0.5) * 2.35,
+        z: radius * Math.sin(theta),
+      },
+      {
+        x: radius * Math.cos(theta + Math.PI),
+        y: (t - 0.5) * 2.35,
+        z: radius * Math.sin(theta + Math.PI),
+      },
+      14
+    );
+  }
+}
+
+function addWaveGrid(points: Point[], random: () => number) {
+  const phase = random() * Math.PI * 2;
+  const frequency = 4 + random() * 1.5;
+  const size = 1.35;
+  const lines = 9;
+  const steps = 48;
+
+  for (let row = 0; row < lines; row += 1) {
+    const z = -size + (row / (lines - 1)) * size * 2;
+    for (let i = 0; i <= steps; i += 1) {
+      const x = -size + (i / steps) * size * 2;
+      points.push({
+        x,
+        y: Math.sin(x * frequency + z * 1.6 + phase) * 0.22,
+        z,
+      });
+    }
+  }
+
+  for (let column = 0; column < lines; column += 1) {
+    const x = -size + (column / (lines - 1)) * size * 2;
+    for (let i = 0; i <= steps; i += 1) {
+      const z = -size + (i / steps) * size * 2;
+      points.push({
+        x,
+        y: Math.sin(x * frequency + z * 1.6 + phase) * 0.22,
+        z,
+      });
+    }
+  }
+}
+
+function addOctahedron(points: Point[]) {
+  const top = { x: 0, y: -1.25, z: 0 };
+  const bottom = { x: 0, y: 1.25, z: 0 };
+  const ring = [
+    { x: -1.2, y: 0, z: 0 },
+    { x: 0, y: 0, z: -1.2 },
+    { x: 1.2, y: 0, z: 0 },
+    { x: 0, y: 0, z: 1.2 },
+  ];
+
+  ring.forEach((point, index) => {
+    const next = ring[(index + 1) % ring.length];
+    addLine(points, top, point, 44);
+    addLine(points, bottom, point, 44);
+    addLine(points, point, next, 44);
+  });
+}
+
 function makePoints(seed: number) {
   const random = randomGenerator(seed);
   const mode = random();
   const points: Point[] = [];
 
-  if (mode < 0.42) {
-    for (let i = 0; i < 620; i += 1) {
-      const u = random() * Math.PI * 2;
-      const v = random() * Math.PI * 2;
-      const radius = 1.18;
-      const tube = 0.48;
-
-      points.push({
-        x: (radius + tube * Math.cos(v)) * Math.cos(u),
-        y: (radius + tube * Math.cos(v)) * Math.sin(u),
-        z: tube * Math.sin(v),
-      });
-    }
-  } else if (mode < 0.72) {
-    const edges = [
-      [-1, -1, -1, 1, -1, -1],
-      [-1, 1, -1, 1, 1, -1],
-      [-1, -1, 1, 1, -1, 1],
-      [-1, 1, 1, 1, 1, 1],
-      [-1, -1, -1, -1, 1, -1],
-      [1, -1, -1, 1, 1, -1],
-      [-1, -1, 1, -1, 1, 1],
-      [1, -1, 1, 1, 1, 1],
-      [-1, -1, -1, -1, -1, 1],
-      [1, -1, -1, 1, -1, 1],
-      [-1, 1, -1, -1, 1, 1],
-      [1, 1, -1, 1, 1, 1],
-    ];
-
-    edges.forEach(([x1, y1, z1, x2, y2, z2]) => {
-      for (let i = 0; i <= 38; i += 1) {
-        const t = i / 38;
-        points.push({
-          x: x1 + (x2 - x1) * t,
-          y: y1 + (y2 - y1) * t,
-          z: z1 + (z2 - z1) * t,
-        });
-      }
-    });
-  } else {
-    for (let i = 0; i < 560; i += 1) {
-      const theta = random() * Math.PI * 2;
-      const phi = Math.acos(2 * random() - 1);
-      const radius = 1 + random() * 0.55;
-
-      points.push({
-        x: radius * Math.sin(phi) * Math.cos(theta),
-        y: radius * Math.sin(phi) * Math.sin(theta),
-        z: radius * Math.cos(phi),
-      });
-    }
-  }
+  if (mode < 0.24) addTorusCloud(points, random);
+  else if (mode < 0.4) addCubeWireframe(points);
+  else if (mode < 0.56) addSphereCloud(points, random);
+  else if (mode < 0.72) addHelix(points, random);
+  else if (mode < 0.88) addWaveGrid(points, random);
+  else addOctahedron(points);
 
   return points;
 }
