@@ -127,29 +127,63 @@ function rotate(point: Point, time: number, seed: number) {
 function renderFrame(points: Point[], time: number, seed: number) {
   const cells = Array.from({ length: width * height }, () => " ");
   const depth = Array.from({ length: width * height }, () => -Infinity);
-
-  points.forEach((point, index) => {
+  const projected = points.map((point) => {
     const rotated = rotate(point, time, seed);
     const distance = 4.2;
     const perspective = distance / (distance + rotated.z);
-    const x = Math.round(width / 2 + rotated.x * perspective * 18);
-    const y = Math.round(height / 2 + rotated.y * perspective * 8.25);
+
+    return {
+      x: rotated.x * perspective,
+      y: rotated.y * perspective,
+      z: rotated.z,
+    };
+  });
+
+  const bounds = projected.reduce(
+    (acc, point) => ({
+      minX: Math.min(acc.minX, point.x),
+      maxX: Math.max(acc.maxX, point.x),
+      minY: Math.min(acc.minY, point.y),
+      maxY: Math.max(acc.maxY, point.y),
+    }),
+    {
+      minX: Infinity,
+      maxX: -Infinity,
+      minY: Infinity,
+      maxY: -Infinity,
+    }
+  );
+
+  const paddingX = 5;
+  const paddingY = 3;
+  const objectWidth = Math.max(bounds.maxX - bounds.minX, 0.001);
+  const objectHeight = Math.max(bounds.maxY - bounds.minY, 0.001);
+  const scale = Math.min(
+    (width - paddingX * 2) / objectWidth,
+    (height - paddingY * 2) / objectHeight
+  );
+  const centerX = (bounds.minX + bounds.maxX) / 2;
+  const centerY = (bounds.minY + bounds.maxY) / 2;
+
+  projected.forEach((point, index) => {
+    const x = Math.round(width / 2 + (point.x - centerX) * scale);
+    const y = Math.round(height / 2 + (point.y - centerY) * scale);
 
     if (x < 0 || x >= width || y < 0 || y >= height) return;
 
     const cell = y * width + x;
-    if (rotated.z <= depth[cell]) return;
+    if (point.z <= depth[cell]) return;
 
     const shimmer = Math.sin(time * 2.2 + index * 0.17 + seed) * 0.12;
     const shadeIndex = Math.max(
       1,
       Math.min(
         shades.length - 1,
-        Math.floor(((rotated.z + 1.8) / 3.6 + shimmer) * shades.length)
+        Math.floor(((point.z + 1.8) / 3.6 + shimmer) * shades.length)
       )
     );
 
-    depth[cell] = rotated.z;
+    depth[cell] = point.z;
     cells[cell] = shades[shadeIndex];
   });
 
