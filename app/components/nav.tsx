@@ -3,13 +3,14 @@ import { ThemeSwitch } from "./theme-switch";
 import { metaData } from "../config";
 
 const navItems = [
-  { path: "/financialmodels", name: "Financial Models", shortName: "Models" },
+  { path: "/financialmodels", name: "Models", shortName: "Models" },
   {
     path: "/investmentportfolio",
-    name: "Investment Portfolio",
+    name: "Investing",
     shortName: "Invest",
   },
-  { path: "/codingprojects", name: "Coding Projects", shortName: "Code" },
+  { path: "/codingprojects", name: "Projects", shortName: "Code" },
+  { path: "/workwithme", name: "Work", shortName: "Work" },
   { path: "/resume", name: "Resume", shortName: "Resume" },
 ];
 

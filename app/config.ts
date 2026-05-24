@@ -4,7 +4,7 @@ export const metaData = {
   name: "BP",
   ogImage: "",
   description:
-    "My personal portfolio",
+    "Finance-minded builder creating financial models, AI tools, and full-stack products.",
   email: "brando.pakel@gmail.com",
 };
 
