@@ -10,6 +10,7 @@ type Point = {
 
 const width = 64;
 const height = 26;
+const characterAspect = 0.55;
 const shades = " .:-=+*#%@";
 
 const fallbackFrame = String.raw`
@@ -25,7 +26,7 @@ const fallbackFrame = String.raw`
    | /                   | /
    |/                    |/
    +---------------------+
-`;
+`.trim();
 
 function randomGenerator(seed: number) {
   let value = seed;
@@ -41,60 +42,51 @@ function randomGenerator(seed: number) {
 
 function makePoints(seed: number) {
   const random = randomGenerator(seed);
-  const mode = random();
   const points: Point[] = [];
+  const latitudes = [-55, -32, -14, 14, 32, 55];
+  const longitudes = [0, 24, 48, 72, 96, 120, 144, 168];
+  const orbitTilt = random() * Math.PI;
 
-  if (mode < 0.42) {
-    for (let i = 0; i < 620; i += 1) {
-      const u = random() * Math.PI * 2;
-      const v = random() * Math.PI * 2;
-      const radius = 1.18;
-      const tube = 0.48;
+  latitudes.forEach((latitude) => {
+    const phi = (latitude * Math.PI) / 180;
+    const ringRadius = Math.cos(phi);
 
+    for (let i = 0; i < 120; i += 1) {
+      const theta = (i / 120) * Math.PI * 2;
       points.push({
-        x: (radius + tube * Math.cos(v)) * Math.cos(u),
-        y: (radius + tube * Math.cos(v)) * Math.sin(u),
-        z: tube * Math.sin(v),
+        x: ringRadius * Math.cos(theta),
+        y: Math.sin(phi),
+        z: ringRadius * Math.sin(theta),
       });
     }
-  } else if (mode < 0.72) {
-    const edges = [
-      [-1, -1, -1, 1, -1, -1],
-      [-1, 1, -1, 1, 1, -1],
-      [-1, -1, 1, 1, -1, 1],
-      [-1, 1, 1, 1, 1, 1],
-      [-1, -1, -1, -1, 1, -1],
-      [1, -1, -1, 1, 1, -1],
-      [-1, -1, 1, -1, 1, 1],
-      [1, -1, 1, 1, 1, 1],
-      [-1, -1, -1, -1, -1, 1],
-      [1, -1, -1, 1, -1, 1],
-      [-1, 1, -1, -1, 1, 1],
-      [1, 1, -1, 1, 1, 1],
-    ];
+  });
 
-    edges.forEach(([x1, y1, z1, x2, y2, z2]) => {
-      for (let i = 0; i <= 38; i += 1) {
-        const t = i / 38;
-        points.push({
-          x: x1 + (x2 - x1) * t,
-          y: y1 + (y2 - y1) * t,
-          z: z1 + (z2 - z1) * t,
-        });
-      }
+  longitudes.forEach((longitude) => {
+    const theta = (longitude * Math.PI) / 180;
+
+    for (let i = 0; i < 96; i += 1) {
+      const phi = -Math.PI / 2 + (i / 95) * Math.PI;
+      points.push({
+        x: Math.cos(phi) * Math.cos(theta),
+        y: Math.sin(phi),
+        z: Math.cos(phi) * Math.sin(theta),
+      });
+    }
+  });
+
+  for (let i = 0; i < 180; i += 1) {
+    const theta = (i / 180) * Math.PI * 2;
+    const x = 1.48 * Math.cos(theta);
+    const y = 0.22 * Math.sin(theta);
+    const z = 1.48 * Math.sin(theta);
+    const sinTilt = Math.sin(orbitTilt);
+    const cosTilt = Math.cos(orbitTilt);
+
+    points.push({
+      x: x * cosTilt - z * sinTilt,
+      y,
+      z: x * sinTilt + z * cosTilt,
     });
-  } else {
-    for (let i = 0; i < 560; i += 1) {
-      const theta = random() * Math.PI * 2;
-      const phi = Math.acos(2 * random() - 1);
-      const radius = 1 + random() * 0.55;
-
-      points.push({
-        x: radius * Math.sin(phi) * Math.cos(theta),
-        y: radius * Math.sin(phi) * Math.sin(theta),
-        z: radius * Math.cos(phi),
-      });
-    }
   }
 
   return points;
@@ -155,19 +147,23 @@ function renderFrame(points: Point[], time: number, seed: number) {
   );
 
   const paddingX = 5;
-  const paddingY = 3;
+  const paddingTop = 3;
+  const paddingBottom = 5;
   const objectWidth = Math.max(bounds.maxX - bounds.minX, 0.001);
   const objectHeight = Math.max(bounds.maxY - bounds.minY, 0.001);
   const scale = Math.min(
-    (width - paddingX * 2) / objectWidth,
-    (height - paddingY * 2) / objectHeight
+    ((width - paddingX * 2) * characterAspect) / objectWidth,
+    (height - paddingTop - paddingBottom) / objectHeight
   );
   const centerX = (bounds.minX + bounds.maxX) / 2;
   const centerY = (bounds.minY + bounds.maxY) / 2;
+  const centerRow = paddingTop + (height - paddingTop - paddingBottom) / 2;
 
   projected.forEach((point, index) => {
-    const x = Math.round(width / 2 + (point.x - centerX) * scale);
-    const y = Math.round(height / 2 + (point.y - centerY) * scale);
+    const x = Math.round(
+      width / 2 + ((point.x - centerX) * scale) / characterAspect
+    );
+    const y = Math.round(centerRow + (point.y - centerY) * scale);
 
     if (x < 0 || x >= width || y < 0 || y >= height) return;
 
@@ -220,12 +216,12 @@ export function AsciiOrbit() {
 
   return (
     <div className="flex w-full justify-center">
-      <pre
+      <div
         aria-hidden="true"
-        className="h-[360px] w-full max-w-2xl overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 px-4 py-5 text-[9px] leading-[1.08] text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 sm:text-[11px] md:text-[13px]"
+        className="grid min-h-[390px] w-full max-w-2xl place-items-center overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 px-4 py-7 text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
       >
-        {frame}
-      </pre>
+        <pre className="m-0 font-mono text-[8px] leading-none sm:text-[10px] md:text-[12px]">{frame}</pre>
+      </div>
     </div>
   );
 }
