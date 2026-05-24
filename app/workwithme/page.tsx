@@ -14,12 +14,6 @@ const offers = [
   "Spreadsheet logic turned into cleaner software tools",
 ];
 
-const process = [
-  "Scope the problem clearly",
-  "Build a useful first version",
-  "Clean up, document, and hand off",
-];
-
 export default function WorkWithMePage() {
   return (
     <section className="mx-auto max-w-2xl pb-12">
@@ -42,19 +36,6 @@ export default function WorkWithMePage() {
             <li key={offer}>- {offer}</li>
           ))}
         </ul>
-      </section>
-
-      <section className="mt-9 border-t border-neutral-200 pt-7 dark:border-neutral-800">
-        <h2 className="text-base font-semibold text-neutral-950 dark:text-neutral-50">
-          How It Works
-        </h2>
-        <ol className="mt-4 space-y-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-          {process.map((item, index) => (
-            <li key={item}>
-              {index + 1}. {item}
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="mt-9 border-t border-neutral-200 pt-7 dark:border-neutral-800">
