@@ -8,8 +8,8 @@ type Point = {
   z: number;
 };
 
-const width = 76;
-const height = 28;
+const width = 64;
+const height = 26;
 const shades = " .:-=+*#%@";
 
 const fallbackFrame = String.raw`
@@ -45,7 +45,7 @@ function makePoints(seed: number) {
   const points: Point[] = [];
 
   if (mode < 0.42) {
-    for (let i = 0; i < 380; i += 1) {
+    for (let i = 0; i < 620; i += 1) {
       const u = random() * Math.PI * 2;
       const v = random() * Math.PI * 2;
       const radius = 1.18;
@@ -74,8 +74,8 @@ function makePoints(seed: number) {
     ];
 
     edges.forEach(([x1, y1, z1, x2, y2, z2]) => {
-      for (let i = 0; i <= 25; i += 1) {
-        const t = i / 25;
+      for (let i = 0; i <= 38; i += 1) {
+        const t = i / 38;
         points.push({
           x: x1 + (x2 - x1) * t,
           y: y1 + (y2 - y1) * t,
@@ -84,7 +84,7 @@ function makePoints(seed: number) {
       }
     });
   } else {
-    for (let i = 0; i < 360; i += 1) {
+    for (let i = 0; i < 560; i += 1) {
       const theta = random() * Math.PI * 2;
       const phi = Math.acos(2 * random() - 1);
       const radius = 1 + random() * 0.55;
@@ -132,8 +132,8 @@ function renderFrame(points: Point[], time: number, seed: number) {
     const rotated = rotate(point, time, seed);
     const distance = 4.2;
     const perspective = distance / (distance + rotated.z);
-    const x = Math.round(width / 2 + rotated.x * perspective * 25);
-    const y = Math.round(height / 2 + rotated.y * perspective * 11.5);
+    const x = Math.round(width / 2 + rotated.x * perspective * 18);
+    const y = Math.round(height / 2 + rotated.y * perspective * 8.25);
 
     if (x < 0 || x >= width || y < 0 || y >= height) return;
 
@@ -188,7 +188,7 @@ export function AsciiOrbit() {
     <div className="flex w-full justify-center">
       <pre
         aria-hidden="true"
-        className="w-fit max-w-full overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 px-4 py-5 text-[7px] leading-[1.05] text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 sm:text-[10px] md:text-xs"
+        className="h-[360px] w-full max-w-2xl overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 px-4 py-5 text-[9px] leading-[1.08] text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 sm:text-[11px] md:text-[13px]"
       >
         {frame}
       </pre>
