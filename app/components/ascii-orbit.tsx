@@ -42,51 +42,60 @@ function randomGenerator(seed: number) {
 
 function makePoints(seed: number) {
   const random = randomGenerator(seed);
+  const mode = random();
   const points: Point[] = [];
-  const latitudes = [-55, -32, -14, 14, 32, 55];
-  const longitudes = [0, 24, 48, 72, 96, 120, 144, 168];
-  const orbitTilt = random() * Math.PI;
 
-  latitudes.forEach((latitude) => {
-    const phi = (latitude * Math.PI) / 180;
-    const ringRadius = Math.cos(phi);
+  if (mode < 0.42) {
+    for (let i = 0; i < 620; i += 1) {
+      const u = random() * Math.PI * 2;
+      const v = random() * Math.PI * 2;
+      const radius = 1.18;
+      const tube = 0.48;
 
-    for (let i = 0; i < 120; i += 1) {
-      const theta = (i / 120) * Math.PI * 2;
       points.push({
-        x: ringRadius * Math.cos(theta),
-        y: Math.sin(phi),
-        z: ringRadius * Math.sin(theta),
+        x: (radius + tube * Math.cos(v)) * Math.cos(u),
+        y: (radius + tube * Math.cos(v)) * Math.sin(u),
+        z: tube * Math.sin(v),
       });
     }
-  });
+  } else if (mode < 0.72) {
+    const edges = [
+      [-1, -1, -1, 1, -1, -1],
+      [-1, 1, -1, 1, 1, -1],
+      [-1, -1, 1, 1, -1, 1],
+      [-1, 1, 1, 1, 1, 1],
+      [-1, -1, -1, -1, 1, -1],
+      [1, -1, -1, 1, 1, -1],
+      [-1, -1, 1, -1, 1, 1],
+      [1, -1, 1, 1, 1, 1],
+      [-1, -1, -1, -1, -1, 1],
+      [1, -1, -1, 1, -1, 1],
+      [-1, 1, -1, -1, 1, 1],
+      [1, 1, -1, 1, 1, 1],
+    ];
 
-  longitudes.forEach((longitude) => {
-    const theta = (longitude * Math.PI) / 180;
-
-    for (let i = 0; i < 96; i += 1) {
-      const phi = -Math.PI / 2 + (i / 95) * Math.PI;
-      points.push({
-        x: Math.cos(phi) * Math.cos(theta),
-        y: Math.sin(phi),
-        z: Math.cos(phi) * Math.sin(theta),
-      });
-    }
-  });
-
-  for (let i = 0; i < 180; i += 1) {
-    const theta = (i / 180) * Math.PI * 2;
-    const x = 1.48 * Math.cos(theta);
-    const y = 0.22 * Math.sin(theta);
-    const z = 1.48 * Math.sin(theta);
-    const sinTilt = Math.sin(orbitTilt);
-    const cosTilt = Math.cos(orbitTilt);
-
-    points.push({
-      x: x * cosTilt - z * sinTilt,
-      y,
-      z: x * sinTilt + z * cosTilt,
+    edges.forEach(([x1, y1, z1, x2, y2, z2]) => {
+      for (let i = 0; i <= 38; i += 1) {
+        const t = i / 38;
+        points.push({
+          x: x1 + (x2 - x1) * t,
+          y: y1 + (y2 - y1) * t,
+          z: z1 + (z2 - z1) * t,
+        });
+      }
     });
+  } else {
+    for (let i = 0; i < 560; i += 1) {
+      const theta = random() * Math.PI * 2;
+      const phi = Math.acos(2 * random() - 1);
+      const radius = 1 + random() * 0.55;
+
+      points.push({
+        x: radius * Math.sin(phi) * Math.cos(theta),
+        y: radius * Math.sin(phi) * Math.sin(theta),
+        z: radius * Math.cos(phi),
+      });
+    }
   }
 
   return points;
@@ -195,7 +204,9 @@ export function AsciiOrbit() {
   const [frame, setFrame] = useState(fallbackFrame);
 
   useEffect(() => {
-    const seed = Math.floor(Math.random() * 1_000_000);
+    const values = new Uint32Array(1);
+    window.crypto?.getRandomValues(values);
+    const seed = values[0] || Math.floor(Math.random() * 1_000_000);
     const points = makePoints(seed);
     let frameId = 0;
     let lastFrame = 0;
