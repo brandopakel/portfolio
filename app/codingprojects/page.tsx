@@ -15,9 +15,15 @@ export default function Projects() {
         {projects.map((project) => (
           <article
             key={project.title}
-            className="rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700"
+            className="rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700 sm:p-5"
           >
-            <div className="grid gap-4 md:grid-cols-[220px_1fr] md:items-start">
+            <div
+              className={
+                project.image
+                  ? "grid gap-4 md:grid-cols-[220px_minmax(0,1fr)] md:items-start"
+                  : "grid gap-4"
+              }
+            >
               {project.image ? (
                 <a
                   href={project.links[0]?.href}
@@ -44,11 +50,11 @@ export default function Projects() {
               ) : null}
 
               <div className="min-w-0">
-                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                  <h2 className="text-base font-medium text-black dark:text-white">
+                <div className="mb-2 flex items-start justify-between gap-4">
+                  <h2 className="min-w-0 text-base font-medium text-black dark:text-white">
                     {project.title}
                   </h2>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  <p className="shrink-0 text-sm text-neutral-500 dark:text-neutral-400">
                     {project.year}
                   </p>
                 </div>

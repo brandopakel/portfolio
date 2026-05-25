@@ -33,7 +33,7 @@ export default function WorkWithMePage() {
         </h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
           {offers.map((offer) => (
-            <li key={offer}>- {offer}</li>
+            <li key={offer}>{offer}</li>
           ))}
         </ul>
       </section>
