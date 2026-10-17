@@ -1,73 +1,35 @@
-"use client";
-
-import React from "react";
-import {
-  FaXTwitter,
-  FaGithub,
-  FaInstagram,
-  FaRss,
-  FaLinkedinIn,
-} from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { TbMailFilled } from "react-icons/tb";
 import { metaData, socialLinks } from "app/config";
 
 const YEAR = new Date().getFullYear();
 
-function SocialLink({ href, icon: Icon }) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      <Icon />
-    </a>
-  );
-}
-
-function SocialLinks() {
-  return (
-    /*<div className="flex text-lg gap-3.5 float-right transition-opacity duration-300 hover:opacity-90">
-      <SocialLink href={socialLinks.twitter} icon={FaXTwitter} />
-      <SocialLink href={socialLinks.github} icon={FaGithub} />
-      <SocialLink href={socialLinks.instagram} icon={FaInstagram} />
-      <SocialLink href={socialLinks.linkedin} icon={FaLinkedinIn} />
-      <SocialLink href={socialLinks.email} icon={TbMailFilled} />
-      <a href="/rss.xml" target="_self">
-        <FaRss />
-      </a>
-    </div>
-    */
-   <div className="flex text-lg gap-3.5 float-right transition-opacity duration-300 hover:opacity-90">
-      <SocialLink href={socialLinks.github} icon={FaGithub} />
-      <SocialLink href={socialLinks.linkedin} icon={FaLinkedinIn} />
-      <SocialLink href={socialLinks.email} icon={TbMailFilled} />
-      <a href="/rss.xml" target="_self">
-        <FaRss />
-      </a>
-    </div>
-  );
-}
+const links = [
+  { href: socialLinks.github, label: "GitHub", icon: FaGithub },
+  { href: socialLinks.linkedin, label: "LinkedIn", icon: FaLinkedinIn },
+  { href: socialLinks.email, label: "Email", icon: TbMailFilled },
+];
 
 export default function Footer() {
   return (
-    <small className="block lg:mt-24 mt-16 text-[#1C1C1C] dark:text-[#D4D4D4]">
-      <time>© {YEAR}</time>{" "}
-      <a
-        className="no-underline"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {metaData.title}
-      </a>
-      <span className="pl-10 italic">
-        {metaData.email}
+    <footer className="mt-24 flex items-center justify-between border-t border-rule py-8 text-sm text-faint">
+      <span>
+        © {YEAR} {metaData.title}
       </span>
-      <style jsx>{`
-        @media screen and (max-width: 480px) {
-          article {
-            padding-top: 2rem;
-            padding-bottom: 4rem;
-          }
-        }
-      `}</style>
-      <SocialLinks />
-    </small>
+      <div className="flex items-center gap-4 text-base">
+        {links.map(({ href, label, icon: Icon }) => (
+          <a
+            key={label}
+            href={href}
+            aria-label={label}
+            target={href.startsWith("mailto:") ? undefined : "_blank"}
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-ink"
+          >
+            <Icon />
+          </a>
+        ))}
+      </div>
+    </footer>
   );
 }

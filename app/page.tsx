@@ -1,14 +1,27 @@
 import { AsciiOrbit } from "./components/ascii-orbit";
+import { socialLinks } from "./config";
 
 export default function Page() {
   return (
-    <section className="flex flex-col items-center pb-10 text-center">
+    <section>
       <AsciiOrbit />
 
-      <p className="mt-6 max-w-xl text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-        I build financial models, AI tools, and full-stack products at the
-        intersection of finance, data, logic, and design.
+      <p className="mt-10 max-w-[34rem] text-[17px] leading-[1.6] text-ink">
+        Software engineer building systems software, infrastructure, and tools
+        for AI agents. M.S. Computer Science at USC.
       </p>
+
+      <div className="mt-6 flex gap-5 text-[15px] text-muted">
+        <a className="link" href={socialLinks.github} target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+        <a className="link" href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+        <a className="link" href={socialLinks.email}>
+          Email
+        </a>
+      </div>
     </section>
   );
 }

@@ -13,20 +13,7 @@ const height = 26;
 const characterAspect = 0.55;
 const shades = " .:-=+*#%@";
 
-const fallbackFrame = String.raw`
-      +---------------------+
-     /|                    /|
-    / |   FINANCE + AI    / |
-   +---------------------+  |
-   |  |                  |  |
-   |  |   MODELS         |  |
-   |  |   TOOLS          |  |
-   |  |   PRODUCTS       |  |
-   |  +------------------|--+
-   | /                   | /
-   |/                    |/
-   +---------------------+
-`.trim();
+const blankFrame = Array.from({ length: height }, () => " ".repeat(width)).join("\n");
 
 function randomGenerator(seed: number) {
   let value = seed;
@@ -308,39 +295,62 @@ function renderFrame(points: Point[], time: number, seed: number) {
   return lines.join("\n");
 }
 
+function newSeed() {
+  const values = new Uint32Array(1);
+  window.crypto?.getRandomValues(values);
+  return values[0] || Math.floor(Math.random() * 1_000_000);
+}
+
 export function AsciiOrbit() {
-  const [frame, setFrame] = useState(fallbackFrame);
+  const [frame, setFrame] = useState(blankFrame);
+  const [seed, setSeed] = useState<number | null>(null);
 
   useEffect(() => {
-    const values = new Uint32Array(1);
-    window.crypto?.getRandomValues(values);
-    const seed = values[0] || Math.floor(Math.random() * 1_000_000);
+    setSeed(newSeed());
+  }, []);
+
+  useEffect(() => {
+    if (seed === null) return;
+
     const points = makePoints(seed);
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      setFrame(renderFrame(points, 0.6, seed));
+      return;
+    }
+
     let frameId = 0;
     let lastFrame = 0;
 
     function tick(timestamp: number) {
       if (timestamp - lastFrame > 70) {
-        setFrame(renderFrame(points, timestamp / 1000, seed));
+        setFrame(renderFrame(points, timestamp / 1000, seed!));
         lastFrame = timestamp;
       }
-
       frameId = window.requestAnimationFrame(tick);
     }
 
     frameId = window.requestAnimationFrame(tick);
-
     return () => window.cancelAnimationFrame(frameId);
-  }, []);
+  }, [seed]);
 
   return (
-    <div className="flex w-full justify-center">
-      <div
+    <button
+      type="button"
+      onClick={() => setSeed(newSeed())}
+      aria-label="Show another shape"
+      title="Click for another shape"
+      className="-mx-1 block cursor-pointer select-none px-1 text-signal"
+    >
+      <pre
         aria-hidden="true"
-        className="grid min-h-[390px] w-full max-w-2xl place-items-center overflow-hidden rounded-md border border-neutral-200 bg-neutral-50 px-4 py-7 text-neutral-700 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
+        className="m-0 font-mono text-[8.5px] leading-[1.05] sm:text-[12px] md:text-[14px]"
       >
-        <pre className="m-0 font-mono text-[8px] leading-none sm:text-[10px] md:text-[12px]">{frame}</pre>
-      </div>
-    </div>
+        {frame}
+      </pre>
+    </button>
   );
 }

@@ -1,20 +1,18 @@
 # brandopakel — personal site
 
-Personal portfolio and project index, built with **Next.js (App Router)**,
-TypeScript, and MDX.
+Personal site and project index, built with **Next.js (App Router)**, TypeScript,
+and Tailwind.
 
-## Features
-
-- MDX-driven content with custom components (image grids, captions, embeds)
-- A live **investment-portfolio quotes** API route (`app/api/investment-portfolio/quotes`)
-- Project showcase (`/codingprojects`) driven by a typed data file
-- Dark/light theme switch, ASCII-art orbit animation, OG-image generation
+- Project list (`/projects`) driven by a typed data file: `app/projects/project-data.tsx`
+- Resume (`/resume`) served from `public/resume/brando-pakel-resume.pdf`
+- Dependency-free ASCII renderer on the home page (`app/components/ascii-orbit.tsx`)
+- Light/dark theme, OG-image generation
 
 ## Develop
 
 ```bash
-npm install
-npm run dev     # http://localhost:3000
+pnpm install
+pnpm dev     # http://localhost:3000
 ```
 
 Deployed on Vercel.
