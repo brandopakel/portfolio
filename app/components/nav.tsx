@@ -12,7 +12,7 @@ const navItems = [
 export function Navbar() {
   return (
     <nav className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-8 sm:py-10">
-      <Link href="/" className="text-[15px] font-semibold tracking-tight text-ink">
+      <Link href="/" className="text-xl font-semibold tracking-tight text-ink">
         {metaData.title}
       </Link>
       <div className="flex items-center gap-4 text-[15px] text-muted sm:gap-5">
