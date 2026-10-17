@@ -1,10 +1,10 @@
-import { AsciiOrbit } from "./components/ascii-orbit";
+import { RandomAscii } from "./components/random-ascii";
 import { socialLinks } from "./config";
 
 export default function Page() {
   return (
     <section>
-      <AsciiOrbit />
+      <RandomAscii />
 
       <p className="mt-10 max-w-[34rem] text-[17px] leading-[1.6] text-ink">
         Software engineer building systems software and infrastructure. M.S.

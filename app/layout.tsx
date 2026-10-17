@@ -54,12 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           <div className="mx-auto flex min-h-screen w-full max-w-[640px] flex-col px-5 sm:px-6">
             <Navbar />
             <main className="flex-auto">{children}</main>

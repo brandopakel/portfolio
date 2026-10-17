@@ -5,14 +5,15 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
 import { FaCircleHalfStroke } from "react-icons/fa6";
 
-const storageKey = 'theme-preference';
-
+// Dark is the default on first visit; a reader's choice is remembered after that.
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="dark"
+      enableSystem={false}
+      storageKey="bp-theme"
+      disableTransitionOnChange
       {...props}
     >
       {children}
@@ -21,70 +22,22 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 }
 
 export const ThemeSwitch: React.FC = () => {
-  const { setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
-  const [currentTheme, setCurrentTheme] = React.useState<'light' | 'dark'>('light');
 
-  const getColorPreference = (): 'light' | 'dark' => {
-    if (typeof window !== 'undefined') {
-      const storedPreference = localStorage.getItem(storageKey);
-      if (storedPreference) {
-        return storedPreference as 'light' | 'dark';
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light'; 
-  };
+  React.useEffect(() => setMounted(true), []);
 
-  const reflectPreference = (theme: 'light' | 'dark') => {
-    document.documentElement.classList.remove('bg-light', 'bg-dark');
-    document.documentElement.classList.add(`bg-${theme}`);
-    setCurrentTheme(theme);
-    setTheme(theme);
-  };
-
-  React.useEffect(() => {
-    setMounted(true);
-    const initTheme = getColorPreference();
-    reflectPreference(initTheme);
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      const newTheme = mediaQuery.matches ? 'dark' : 'light';
-      localStorage.setItem(storageKey, newTheme);
-      reflectPreference(newTheme);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [setTheme]);
-
-  const toggleTheme = () => {
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    localStorage.setItem(storageKey, newTheme);
-    reflectPreference(newTheme);
-  };
-
-  if (!mounted) {
-    return (
-      <FaCircleHalfStroke
-        className="h-[14px] w-[14px] text-muted"
-        aria-hidden="true"
-      />
-    );
-  }
+  const isDark = !mounted || resolvedTheme !== "light";
 
   return (
     <button
       id="theme-toggle"
-      aria-label={`Switch to ${currentTheme === "light" ? "dark" : "light"} mode`}
-      onClick={toggleTheme}
+      type="button"
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       className="flex items-center justify-center text-muted transition-colors hover:text-ink"
     >
-      <FaCircleHalfStroke
-        className="h-[14px] w-[14px]"
-      />
+      <FaCircleHalfStroke className="h-[14px] w-[14px]" />
     </button>
   );
 };
