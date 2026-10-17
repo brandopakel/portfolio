@@ -7,8 +7,8 @@ export default function Page() {
       <AsciiOrbit />
 
       <p className="mt-10 max-w-[34rem] text-[17px] leading-[1.6] text-ink">
-        Software engineer building systems software, infrastructure, and tools
-        for AI agents. M.S. Computer Science at USC.
+        Software engineer building systems software and infrastructure. M.S.
+        Computer Science at USC.
       </p>
 
       <div className="mt-6 flex gap-5 text-[15px] text-muted">

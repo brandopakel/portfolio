@@ -4,7 +4,7 @@ export const metaData = {
   name: "BP",
   ogImage: "",
   description:
-    "Software engineer building systems software, infrastructure, and tools for AI agents.",
+    "Software engineer building systems software and infrastructure.",
   email: "brando.pakel@gmail.com",
 };
 
